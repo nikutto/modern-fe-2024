@@ -1,0 +1,12 @@
+{
+  "name": "modern-fe-2024",
+  "version": "1.0.0",
+  "description": "modern-fe-2024 multi workspace",
+  "main": "index.js",
+  "author": "nikutto",
+  "license": "ISC",
+  "private": true,
+  "workspaces": [
+    "packages/my-app"
+  ]
+}
