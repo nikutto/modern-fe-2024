@@ -1,6 +1,10 @@
+"use client"
+
+import { postHello } from "@/api/helloApi";
 import { ItemPreview } from "@/components/item/ItemPreview";
 import { Footer } from "@/components/search/pages/Footer";
 import { Header } from "@/components/search/pages/Header";
+import { useState } from "react";
 
 const PopularItems = () => {
   const items = [
@@ -15,7 +19,7 @@ const PopularItems = () => {
     <div className="bg-slate-100 p-3 rounded">
       <div className="flex flex-col">
         <div className="p-1 my-1 mb-3">
-          人気の商品
+          Popular Items
         </div>
         <ul className="flex">
           {
@@ -38,10 +42,37 @@ const PopularItems = () => {
   )
 }
 
+const AddHelloMenu = () => {
+  const [message, setMessage] = useState<string>("");
+  const submit = (message: string) => {
+    postHello(message).then((res) => {
+      setMessage("");
+    }).catch((err) => {
+      setMessage("Failed to post...")
+    })
+  };
+  return (
+    <div className="bg-slate-100 p-3 rounded">
+      <div>
+        Add message for Demo!
+      </div>
+      <div className="flex flex-col">
+        <input type="text" value={message} onChange={(e) => setMessage(e.target.value)}/>
+        <button onClick={() => submit(message)}>
+          Submit
+        </button>
+      </div>
+    </div>
+  )
+}
+
 const Main = () => (
-  <div className="p-8 w-full h-full">
+  <div className="p-8 flex flex-col w-full h-full">
     <div className="my-8">
       <PopularItems />
+    </div>
+    <div className="my-8">
+      <AddHelloMenu />
     </div>
   </div>
 );
