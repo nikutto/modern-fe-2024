@@ -1,7 +1,7 @@
 export const SearchBar = () => (
   <div className="flex">
     <div className="flex flex-col items-center">
-      <input 
+    <input 
         className="bg-white w-40 items-center rounded-l"
         type="text" 
       />

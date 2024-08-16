@@ -1,6 +1,6 @@
 "use client"
 
-import { postHello } from "@/api/helloApi";
+import { postHello, searchHello, SearchHit } from "@/api/helloApi";
 import { ItemPreview } from "@/components/item/ItemPreview";
 import { Footer } from "@/components/search/pages/Footer";
 import { Header } from "@/components/search/pages/Header";
@@ -66,6 +66,45 @@ const AddHelloMenu = () => {
   )
 }
 
+const SearchHelloMenu = () => {
+  const [query, setQuery] = useState<string>("");
+  const [hellos, setHellos] = useState<SearchHit[]>([]);
+  const search = (message: string) => {
+    searchHello(message).then((res) => {
+      setHellos(
+        res.hits
+      )
+    }).catch((err) => {
+      setQuery("Failed to search...")
+    })
+  };
+  
+  return (
+    <div className="bg-slate-100 p-3 rounded">
+      <div>
+        Search demo
+      </div>
+      <div className="flex flex-col">
+        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)}/>
+        <button onClick={() => search(query)}>
+          Search
+        </button>
+      </div>
+      <div>
+        {
+          hellos.map((hit) => {
+            return (
+              <div key={hit.id}>
+                {hit.id}: {hit.message}
+              </div>
+            )
+          })
+        }
+      </div>
+    </div>
+  )
+}
+
 const Main = () => (
   <div className="p-8 flex flex-col w-full h-full">
     <div className="my-8">
@@ -73,6 +112,9 @@ const Main = () => (
     </div>
     <div className="my-8">
       <AddHelloMenu />
+    </div>
+    <div className="my-8">
+      <SearchHelloMenu />
     </div>
   </div>
 );

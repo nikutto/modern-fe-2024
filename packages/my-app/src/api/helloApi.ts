@@ -8,3 +8,19 @@ export const postHello = async (message: string) => {
   });
   return response.json();
 }
+
+export type SearchResponse = {
+  hits: SearchHit[];
+}
+
+export type SearchHit = {
+  id: string;
+  message: string;
+}
+export const searchHello = async (query: string) => {
+  const param = new URLSearchParams({
+    query: query,
+  }).toString()
+  const response = await fetch(`/api/search/hello?${param}`);
+  return response.json();
+}
